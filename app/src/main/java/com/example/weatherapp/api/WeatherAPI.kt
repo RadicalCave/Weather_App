@@ -23,7 +23,7 @@ interface WeatherAPI {
     //Get Coordinates by location name
     @GET("geo/1.0/direct")
     suspend fun getLocation(@Query("q") q: String,
-                            @Query("limit") limit: String = "5",
-                            @Query("appid") appkey: String = apiKey): GeoCodeItem
+                            @Query("limit") limit: String = "1",
+                            @Query("appid") appkey: String = apiKey): List<GeoCodeItem>
 
 }

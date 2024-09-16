@@ -9,7 +9,7 @@ class ApiHelperImpl @Inject constructor(private val apiService: WeatherAPI): Api
 
     override suspend fun getCurrentWeather(lat: Double?, lon: Double?): Forecast = apiService.getCurrentWeather(lat, lon)
 
-    override suspend fun getLocation(cityName: String): GeoCodeItem = apiService.getLocation(cityName)
+    override suspend fun getLocation(cityName: String): List<GeoCodeItem> = apiService.getLocation(cityName)
 
 
 }

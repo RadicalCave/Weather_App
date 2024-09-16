@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.CurrentWeatherRecyclerviewBinding
-import com.example.weatherapp.model.Forecast
 import com.example.weatherapp.model.WeatherItem
+import com.squareup.picasso.Picasso
 
 class CurrentWeatherAdapter: RecyclerView.Adapter<CurrentWeatherAdapter.WeatherViewHolder>() {
 
@@ -25,7 +25,7 @@ class CurrentWeatherAdapter: RecyclerView.Adapter<CurrentWeatherAdapter.WeatherV
 
     private val asyncListDiffer = AsyncListDiffer(this, diffUtil)
 
-    fun saveData(weatherItem: List<WeatherItem>){
+    fun saveData(weatherItem: List<WeatherItem?>?){
         asyncListDiffer.submitList(weatherItem)
     }
 
@@ -45,12 +45,18 @@ class CurrentWeatherAdapter: RecyclerView.Adapter<CurrentWeatherAdapter.WeatherV
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
         val item = dataset[position]
         with(holder){
-//            binding.weatherIcon.drawable = item.icon
-            binding.weatherDesc.text = item.description.toString()
+            Picasso.get().load("${iconUrl}${item.icon}${imgSpec}")
+                .resize(500,500)
+                .into(binding.weatherIcon)
+            binding.weatherDesc.text = item.description.toString().uppercase()
         }
     }
 
     override fun getItemCount() = dataset.size
 
+    private companion object{
+        val iconUrl = "https://openweathermap.org/img/wn/"
+        val imgSpec = "@2x.png"
+    }
 
 }

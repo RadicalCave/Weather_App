@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Weather App</string>
 
-    <string name="celsius" formatted="false">%1$s</string>
-    <string name="humidity" formatted="false">Humidity: %1$s</string>
-    <string name="feels_like" formatted="false">Feels Like: %1$s</string>
+    <string name="celsius" formatted="false">%1$s \u2103</string>
+    <string name="humidity" formatted="false">Humidity: %1$s%%</string>
+    <string name="feels_like" formatted="false">Feels Like: %1$s \u2103</string>
+    <string name="rain_lvl" formatted="false">Rain: %1$s mm</string>
+    <string name="wind_spd" formatted="false">Wind Speed: %1$s m/s</string>
+    <string name="temp_min" formatted="false">Min Temp: %1$s \u2103</string>
+    <string name="temp_max" formatted="false">Max Temp: %1$s \u2103</string>
+    <string name="location" formatted="false">%1$s, %2$s</string>
 
 </resources>

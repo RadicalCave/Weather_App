@@ -1,17 +1,13 @@
 package com.example.weatherapp.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherapp.model.Forecast
-import com.example.weatherapp.model.GeoCode
 import com.example.weatherapp.model.GeoCodeItem
 import com.example.weatherapp.repo.DataStorePreferencesRepo
 import com.example.weatherapp.repo.WeatherRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,11 +29,16 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val forecastLocation = weatherRepo.getLocation(cityName)
-                _currentLocation.value = WeatherLocationUiState.LocationFound(forecastLocation)
-                getForecast(forecastLocation.lat, forecastLocation.lon)
+                for (data in forecastLocation.indices){
+                    val jsonObject = forecastLocation[data]
+                    _currentLocation.value = WeatherLocationUiState.LocationFound(jsonObject)
+                    val lat = jsonObject.lat
+                    val lon = jsonObject.lon
+                    getForecast(lat,lon)
+                }
             } catch (e: Throwable) {
                 _currentLocation.value = WeatherLocationUiState.Error(
-                    e.localizedMessage ?: "Something went wrong"
+                    e.localizedMessage ?: "Invalid Location"
                 )
             }
         }
@@ -67,7 +68,6 @@ class WeatherViewModel @Inject constructor(
         data class Error(val error: String) : WeatherLocationUiState()
         object Loading : WeatherLocationUiState()
     }
-
 
     suspend fun getLatCoords(): Result<Double> {
         return coordsDataStorePreferencesRepo.getLat()

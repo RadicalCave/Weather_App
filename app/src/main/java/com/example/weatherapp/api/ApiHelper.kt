@@ -8,6 +8,6 @@ interface ApiHelper {
 
     suspend fun getCurrentWeather(lat: Double?, lon: Double?): Forecast
 
-    suspend fun getLocation(cityName: String): GeoCodeItem
+    suspend fun getLocation(cityName: String): List<GeoCodeItem>
 
 }

@@ -5,5 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.WeatherApp" parent="Base.Theme.WeatherApp" />
+    <style name="Theme.WeatherApp" parent="Base.Theme.WeatherApp">
+        <item name="android:colorBackground">@color/sky_blueDark</item>
+        <item name="android:textColor">@color/off_white</item>
+    </style>
+
 </resources>

@@ -11,93 +11,194 @@
         android:id="@+id/guidelineLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_begin="20dp"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintGuide_end="20dp"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchCity"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/currentLocation"
+        style="?attr/textInputFilledStyle"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
         android:hint="Search City Name"
+        app:boxCornerRadiusBottomEnd="0dp"
+
         app:boxCornerRadiusTopEnd="0dp"
-        app:boxCornerRadiusBottomEnd="0dp">
+        app:layout_constraintEnd_toStartOf="@id/getWeatherBtn"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintBottom_toTopOf="@id/weatherCard"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/cityInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"/>
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/getWeatherBtn"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="Get Weather"
+        android:layout_height="55dp"
         android:backgroundTint="@color/black"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Get Weather"
         app:cornerRadius="0dp"
         app:layout_constraintStart_toEndOf="@id/searchCity"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/currentLocation"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/currentLocation"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/weatherCard"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/sky_blue"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@id/searchCity"/>
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/searchCity">
 
-    <TextView
-        android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@id/currentLocation"/>
-    
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/current_weather_recyclerview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@id/temp"
-        tools:itemCount="1"
-        tools:listitem="@layout/current_weather_recyclerview"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/currentLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:drawableStart="@drawable/location"
+                android:drawablePadding="5dp"
+                android:text="Yangon"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/locationInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:text="Yangon, Myanmar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/currentLocation" />
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="27.66"
+                android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/locationInfo" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/current_weather_recyclerview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/temp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="1"
+                tools:listitem="@layout/current_weather_recyclerview" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Humidity: 80"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
         app:layout_constraintStart_toStartOf="@id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@id/current_weather_recyclerview"/>
+        app:layout_constraintTop_toBottomOf="@id/weatherCard" />
+
+    <TextView
+        android:id="@+id/rainLvl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Rain: 3.16 mm"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/humidity" />
+
+    <TextView
+        android:id="@+id/windSpd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Wind Speed: 0.62 m/s"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toBottomOf="@id/rainLvl" />
+
 
     <TextView
         android:id="@+id/feelsLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@id/current_weather_recyclerview" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Feels Like: 37"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:layout_constraintStart_toEndOf="@id/guidelineMid"
+        app:layout_constraintTop_toBottomOf="@id/weatherCard" />
+
+    <TextView
+        android:id="@+id/tempMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Min Temp: 24"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:layout_constraintStart_toEndOf="@id/guidelineMid"
+        app:layout_constraintTop_toBottomOf="@id/feelsLike" />
+
+    <TextView
+        android:id="@+id/tempMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:text="Max Temp: 30"
+        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+        app:layout_constraintStart_toEndOf="@id/guidelineMid"
+        app:layout_constraintTop_toBottomOf="@id/tempMin" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/composeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@id/current_weather_recyclerview"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
